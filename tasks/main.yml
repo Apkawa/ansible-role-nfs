@@ -1,0 +1,17 @@
+---
+- name: Vars
+  include: vars.yml
+
+- name:
+  include: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "install-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+        - "install-{{ ansible_distribution }}.yml"
+        - "install-{{ ansible_os_family }}.yml"
+        - "install.yml"
+      paths:
+        - 'tasks'
+
+

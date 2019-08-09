@@ -1,0 +1,35 @@
+---
+galaxy_info:
+  role_name: rename me
+  author: your name
+  description: your description
+  license: MIT
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+        - buster
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
+        - bionic
+
+  galaxy_tags:
+    - cron
+    - system
+    - server
+
+
+dependencies: []

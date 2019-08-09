@@ -1,0 +1,43 @@
+---
+dist: xenial
+language: python
+services: docker
+
+python:
+  - "2.7"
+  - "3.6"
+  - "3.7"
+
+env:
+  global:
+    - PIPENV_VENV_IN_PROJECT=1
+    - PIPENV_IGNORE_VIRTUALENVS=1
+  matrix:
+    - TOX_ENV=centos6
+    - TOX_ENV=centos7
+    - TOX_ENV=ubuntu1804
+    - TOX_ENV=ubuntu1404
+    - TOX_ENV=debian10
+    - TOX_ENV=debian9
+    - TOX_ENV=fedora27
+    - TOX_ENV=fedora30
+    # check ansible version on centos7
+    - TOX_ENV=ansible24-centos7
+    - TOX_ENV=ansible25-centos7
+    - TOX_ENV=ansible26-centos7
+    - TOX_ENV=ansible27-centos7
+    # check ansible version on debian10
+    - TOX_ENV=ansible24-debian10
+    - TOX_ENV=ansible25-debian10
+    - TOX_ENV=ansible26-debian10
+    - TOX_ENV=ansible27-debian10
+
+install:
+  - pip install pipenv tox-travis
+  - pipenv install --dev
+
+script:
+  - tox -e $TOX_ENV
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
