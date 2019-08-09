@@ -1,17 +1,15 @@
 ---
-- name: Vars
-  include: vars.yml
+- include: vars.yml
 
-- name:
-  include: "{{ lookup('first_found', params) }}"
-  vars:
-    params:
-      files:
-        - "install-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-        - "install-{{ ansible_distribution }}.yml"
-        - "install-{{ ansible_os_family }}.yml"
-        - "install.yml"
-      paths:
-        - 'tasks'
+- include: install_server.yml
+  when: nfs_server
+- include: setup_server.yml
+  when: nfs_server
+
+- include: install_client.yml
+  when: nfs_client
+- include: setup_client.yml
+  when: nfs_client
 
 
+#https://docs.ansible.com/ansible/latest/modules/blockinfile_module.html

@@ -1,0 +1,25 @@
+---
+
+- debug: var=nfs_server_exports
+- name: Prepare `nfs_server_exports` fact
+  set_fact:
+    nfs_server_exports: >-
+      {%- set _exports=[] -%}
+      {%- for _export in nfs_server_exports -%}
+        {%- set _export={'options':'(rw,sync)', 'allow': ['*']}|combine(_export) -%}
+        {%- set _allow_list=[] -%}
+        {%- for _allow in _export.allow|default(['*']) -%}
+          {%- if _allow is string -%}
+            {%- set _allow={'ip': _allow} -%}
+          {%- endif -%}
+          {%- set _allow={'options': _export.options}|combine(_allow) -%}
+          {%- if _allow.options is iterable and _allow.options is not string -%}
+            {%- set _allow=_allow|combine({'options': '({})'.format(_allow.options|join(','))}) -%}
+          {%- endif -%}
+          {%- set _=_allow_list.append(_allow) -%}
+        {%- endfor -%}
+        {%- set _=_exports.append(_export|combine({'allow': _allow_list})) -%}
+      {%- endfor -%}
+      {{ _exports }}
+
+- debug: var=nfs_server_exports

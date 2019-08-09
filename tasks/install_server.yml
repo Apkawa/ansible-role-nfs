@@ -1,0 +1,11 @@
+---
+
+- include: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/install_server.yml"
+        - "{{ ansible_distribution }}/install_server.yml"
+        - "{{ ansible_os_family }}/install_server.yml"
+      paths:
+        - 'tasks'

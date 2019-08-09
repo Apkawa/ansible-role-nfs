@@ -1,0 +1,19 @@
+---
+- name: Install nfs server deps
+  package:
+    name: "{{ item }}"
+  with_items: "{{ nfs_server_packages }}"
+
+
+- name: Run nfs server
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - rpcbind
+    - nfs-server
+    - nfs-lock
+    - nfs-idmap
+
+

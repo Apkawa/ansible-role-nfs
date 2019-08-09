@@ -1,0 +1,6 @@
+---
+- name: Install nfs client deps
+  package:
+    name: "{{ item }}"
+  with_items: "{{ nfs_client_packages }}"
+

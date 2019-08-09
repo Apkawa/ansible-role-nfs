@@ -1,2 +1,31 @@
 ---
-# defaults file for ansible-role-borg
+nfs_client: yes
+nfs_client_shares: []
+
+nfs_client_shares_example:
+  - src: example.com:/export/
+    mount_point: /mnt/example_nfs/
+    deleted: false
+
+# NFS server. disabled by default
+nfs_server: no
+nfs_server_exports: []
+
+nfs_server_exports_example:
+  - path: /path/to/export
+    # optional
+    mount: /real_path/what/you/hide
+    # default *
+    allow:
+      - 127.0.0.1
+      - ip: 10.0.0.2
+        # override for client
+        options:
+          - ro
+          - sync
+      - ip: 10.0.0.4
+        options: (rw,sync)
+    # default
+    options: (rw,sync)
+    delete: no
+

@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  role_name: rename me
-  author: your name
-  description: your description
+  role_name: nfs
+  author: apkawa
+  description: nfs client and nfs server
   license: MIT
 
   min_ansible_version: 2.4

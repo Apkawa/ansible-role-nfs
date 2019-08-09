@@ -1,0 +1,8 @@
+---
+- name: Mount nfs share
+  mount:
+    fstype: nfs
+    src: "{{ item.src }}"
+    path: "{{ item.mount_point }}"
+    state: mounted
+  with_items: ["{{ nfs_client_shares|default([]) }}"]

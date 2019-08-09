@@ -1,5 +1,36 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    nfs_server: yes
+    nfs_server_exports:
+      - path: /exports/home/
+        mount: /tmp/exports/
+
+      - path: /exports/ro/
+        mount: /tmp/exports_ro/
+        allow:
+          - 127.0.0.1
+          - ip: 10.0.1.0/24
+          - ip: 10.0.0.1
+            options: (rw,sync)
+          - ip: 10.0.0.2
+            options:
+              - rw
+              - sync
+              - nohide
+        options: (ro,sync)
+
+    nfs_client: yes
+    nfs_client_mounts:
+      - src: 127.0.0.1:/exports/home/
+        mount_point: /mnt/nfs_home/
+        deleted: false
+
+      - src: 127.0.0.1:/exports/ro/
+        mount_point: /mnt/nfs_ro/
+        deleted: false
+
+
   roles:
-    - role: ansible-role-borg
+    - role: ansible-role-nfs
