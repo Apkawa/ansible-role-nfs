@@ -10,6 +10,3 @@
   when: nfs_client
 - include: setup_client.yml
   when: nfs_client
-
-
-#https://docs.ansible.com/ansible/latest/modules/blockinfile_module.html

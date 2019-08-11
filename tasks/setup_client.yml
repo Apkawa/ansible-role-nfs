@@ -2,6 +2,7 @@
 - name: Mount nfs share
   mount:
     fstype: nfs
+    opts: "{{ item.opts|default(omit) }}"
     src: "{{ item.src }}"
     path: "{{ item.mount_point }}"
     state: "{{ item.deleted|default(false) | ternary('absent', 'mounted') }}"

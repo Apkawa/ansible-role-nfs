@@ -10,4 +10,4 @@
     state: started
     enabled: yes
   with_items:
-    - nfs
+    - nfs-kernel-server

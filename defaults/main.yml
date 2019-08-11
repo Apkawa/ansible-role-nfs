@@ -6,7 +6,10 @@ nfs_client_mounts: []
 nfs_client_mounts_example:
   - src: example.com:/export/
     mount_point: /mnt/example_nfs/
+    # by default not defined
+    opts: rw,sync
     deleted: false
+
 
 # NFS server. disabled by default
 nfs_server: no
@@ -29,4 +32,3 @@ nfs_server_shares_example:
     # default
     options: (rw,sync)
     delete: no
-

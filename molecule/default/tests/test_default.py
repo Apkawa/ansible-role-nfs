@@ -14,10 +14,8 @@ def test_exports(host):
     assert f.user == 'root'
     assert f.group == 'root'
 
-    assert f.content_string == (
-        '/exports/home/   *(rw,sync)\n'
-        '/exports/ro/   127.0.0.1(ro,sync)  10.0.1.0/24(ro,sync)  10.0.0.1(rw,sync)  10.0.0.2(rw,sync,nohide)\n'
-    )
+    assert '/exports/home/   *(rw,sync)' in f.content_string
+    assert '/exports/ro/   127.0.0.1(ro,sync)  10.0.1.0/24(ro,sync)  10.0.0.1(rw,sync)  10.0.0.2(rw,sync,nohide)' in f.content_string
 
 
 def test_nfs_server(host):

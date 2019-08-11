@@ -25,7 +25,18 @@
 - debug: var=nfs_server_shares
 
 
-- name: Mount shares
+- name: Add to fstab shares
+  mount:
+    path: "{{ item.path }}"
+    src: "{{ item.mount_from }}"
+    opts: bind
+    state: "{{ item.deleted|default(false) | ternary('absent', 'present') }}"
+    fstype: none
+  with_items: "{{ nfs_server_shares }}"
+  when: item.mount_from is defined and item.mount_from
+  register: mounted_shares
+
+- name: mount shares
   mount:
     path: "{{ item.path }}"
     src: "{{ item.mount_from }}"
@@ -34,7 +45,7 @@
     fstype: none
   with_items: "{{ nfs_server_shares }}"
   when: item.mount_from is defined and item.mount_from
-
+  changed_when: mounted_shares.changed
 
 
 - name: Update nfs exports
@@ -58,12 +69,4 @@
 
 - name: update exports
   command: exportfs -ar
-  changed_when:  update_exports.changed
-
-
-- name: Reload nfs service
-  service:
-    name: nfs
-    state: reloaded
-  changed_when:  update_exports.changed
-
+  changed_when: update_exports.changed
