@@ -1,11 +1,11 @@
 ---
 
 - debug: var=nfs_server_exports
-- name: Prepare `nfs_server_exports` fact
+- name: Prepare `nfs_server_shares` fact
   set_fact:
-    nfs_server_exports: >-
+    nfs_server_shares: >-
       {%- set _exports=[] -%}
-      {%- for _export in nfs_server_exports -%}
+      {%- for _export in nfs_server_shares -%}
         {%- set _export={'options':'(rw,sync)', 'allow': ['*']}|combine(_export) -%}
         {%- set _allow_list=[] -%}
         {%- for _allow in _export.allow|default(['*']) -%}
@@ -22,4 +22,48 @@
       {%- endfor -%}
       {{ _exports }}
 
-- debug: var=nfs_server_exports
+- debug: var=nfs_server_shares
+
+
+- name: Mount shares
+  mount:
+    path: "{{ item.path }}"
+    src: "{{ item.mount_from }}"
+    opts: bind
+    state: "{{ item.deleted|default(false) | ternary('absent', 'mounted') }}"
+    fstype: none
+  with_items: "{{ nfs_server_shares }}"
+  when: item.mount_from is defined and item.mount_from
+
+
+
+- name: Update nfs exports
+  lineinfile:
+    path: /etc/exports
+    regex: "^{{ item.path }}\\s+"
+    line: >-
+      {{ item.path }}
+      {% for allow in item.allow %}
+        {{ allow.ip }}{{ allow.options }}
+      {%- endfor %}
+    state: "{{ item.deleted|default(false) | ternary('absent', 'present') }}"
+    owner: root
+    group: root
+    mode: '0644'
+    create: yes
+  with_items: "{{ nfs_server_shares }}"
+  register: update_exports
+
+- debug: var=update_exports
+
+- name: update exports
+  command: exportfs -ar
+  changed_when:  update_exports.changed
+
+
+- name: Reload nfs service
+  service:
+    name: nfs
+    state: reloaded
+  changed_when:  update_exports.changed
+

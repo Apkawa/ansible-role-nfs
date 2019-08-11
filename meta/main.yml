@@ -14,10 +14,10 @@ galaxy_info:
         - 7
     - name: Fedora
       versions:
-        - all
+        - 27
+        - 30
     - name: Debian
       versions:
-        - jessie
         - stretch
         - buster
     - name: Ubuntu

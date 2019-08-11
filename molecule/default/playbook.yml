@@ -1,14 +1,22 @@
 ---
 - name: Converge
   hosts: all
+  pre_tasks:
+    - name: Ensure mount folder exists
+      file:
+        state: directory
+        path: "{{ item }}"
+      with_items:
+        - /exports/home/
+        - /exports/ro/
+        - /exports/old_ro/
+
   vars:
     nfs_server: yes
-    nfs_server_exports:
+    nfs_server_shares:
       - path: /exports/home/
-        mount: /tmp/exports/
-
       - path: /exports/ro/
-        mount: /tmp/exports_ro/
+        mount_from: /exports/old_ro/
         allow:
           - 127.0.0.1
           - ip: 10.0.1.0/24

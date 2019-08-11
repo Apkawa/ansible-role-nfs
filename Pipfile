@@ -8,7 +8,7 @@ tox = "==3.7.0"
 tox-pipenv = "*"
 
 [requires]
-python_version = "3.6"
+python_version = ">=3.6"
 
 [packages]
 molecule = {extras = [ "docker",],version = "*"}

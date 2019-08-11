@@ -4,5 +4,5 @@
     fstype: nfs
     src: "{{ item.src }}"
     path: "{{ item.mount_point }}"
-    state: mounted
-  with_items: ["{{ nfs_client_shares|default([]) }}"]
+    state: "{{ item.deleted|default(false) | ternary('absent', 'mounted') }}"
+  with_items: ["{{ nfs_client_mounts|default([]) }}"]

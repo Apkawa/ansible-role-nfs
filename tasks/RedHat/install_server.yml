@@ -12,6 +12,7 @@
     enabled: yes
   with_items:
     - rpcbind
+    - nfs
     - nfs-server
     - nfs-lock
     - nfs-idmap

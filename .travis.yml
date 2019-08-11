@@ -23,14 +23,10 @@ env:
     - TOX_ENV=fedora30
     # check ansible version on centos7
     - TOX_ENV=ansible24-centos7
-    - TOX_ENV=ansible25-centos7
-    - TOX_ENV=ansible26-centos7
-    - TOX_ENV=ansible27-centos7
+    - TOX_ENV=ansible28-centos7
     # check ansible version on debian10
     - TOX_ENV=ansible24-debian10
-    - TOX_ENV=ansible25-debian10
-    - TOX_ENV=ansible26-debian10
-    - TOX_ENV=ansible27-debian10
+    - TOX_ENV=ansible28-debian10
 
 install:
   - pip install pipenv tox-travis
