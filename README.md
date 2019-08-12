@@ -2,9 +2,10 @@ Ansible role: nfs
 =================
 [![Build Status](https://travis-ci.org/apkawa/ansible-role-nfs.svg?branch=master)](https://travis-ci.org/apkawa/ansible-role-nfs)
 
-[![Ansible role](https://img.shields.io/ansible/role/%replace%.svg)](https://galaxy.ansible.com/apkawa/nfs)
-[![Ansible role downloads](https://img.shields.io/ansible/role/d/%replace%.svg)](https://galaxy.ansible.com/apkawa/nfs)
-[![Ansible role quality](https://img.shields.io/ansible/quality/%replace%.svg)](https://galaxy.ansible.com/apkawa/nfs)
+[![Ansible role](https://img.shields.io/ansible/role/42677.svg)](https://galaxy.ansible.com/apkawa/nfs)
+[![Ansible role downloads](https://img.shields.io/ansible/role/d/42677.svg)](https://galaxy.ansible.com/apkawa/nfs)
+[![Ansible role quality](https://img.shields.io/ansible/quality/42677.svg)](https://galaxy.ansible.com/apkawa/nfs)
+
 
 Ansible role for NFS client and/or NFS server
 

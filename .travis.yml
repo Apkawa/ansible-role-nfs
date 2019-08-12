@@ -13,14 +13,13 @@ env:
     - PIPENV_VENV_IN_PROJECT=1
     - PIPENV_IGNORE_VIRTUALENVS=1
   matrix:
-    - TOX_ENV=centos6
     - TOX_ENV=centos7
     - TOX_ENV=ubuntu1804
-    - TOX_ENV=ubuntu1404
+    # - TOX_ENV=ubuntu1404
     - TOX_ENV=debian10
     - TOX_ENV=debian9
-    - TOX_ENV=fedora27
-    - TOX_ENV=fedora30
+    # - TOX_ENV=fedora27
+    # - TOX_ENV=fedora30
     # check ansible version on centos7
     - TOX_ENV=ansible24-centos7
     - TOX_ENV=ansible28-centos7
